@@ -9,12 +9,18 @@
 #define OI_H
 
 #include "WPILib.h"
+#include "oimap.h"
+
 class OI {
 private:
-	Joystick *m_Driver, *m_Operator;
+	Joystick *m_driverPad, *m_operatorPad;
 
-	JoystickButton *m_Shift;
-	JoystickButton *m_driveType;
+#define BUTTON_SETUP(btn_name, pad, btn_code, action, cmd, arg) \
+	JoystickButton *btn_name;
+#include "buttons.h"
+#undef BUTTON_SETUP
+
+
 public:
 	OI();
 		float driverLeftX();
@@ -27,7 +33,8 @@ public:
 		float operateX2();
 		float operateY2();
 
-		float driveScale(float);
+		static float scaleAxis(float input);
+
 
 
 

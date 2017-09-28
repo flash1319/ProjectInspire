@@ -10,6 +10,8 @@
 
 Pan::Pan() : Subsystem("pan") {
 
+	m_Turret = new Victor(PWM_PAN_1);
+	m_Trajectory = new Victor(PWM_PAN_2);
 
 }
 
@@ -23,6 +25,8 @@ void Pan::InitDefaultCommand() {
 
 void Pan::Stop() {
 
+	m_Turret->StopMotor();
+	m_Trajectory->StopMotor();
 
 
 }

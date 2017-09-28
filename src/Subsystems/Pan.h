@@ -19,7 +19,8 @@ public:
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-
+	Victor *m_Turret;
+	Victor *m_Trajectory;
 	//Encoder *m_leftEncoder, *m_rightEncoder; will add encoder
 public:
 	Pan();

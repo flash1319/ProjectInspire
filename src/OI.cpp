@@ -9,51 +9,57 @@
 #include "Robotmap.h"
 #include <WPILib.h>
 #include "xb360map.h"
-#include "math.h"
-#include "Commands/CmdDriveShiftToggle.h"
-#include "Commands/CmdDriveChangeMode.h"
+#include "Math.h"
+#include "Utilities.h"
+#define BUTTON_HEADERS
+#include "buttons.h"
+#undef BUTTON_HEADERS
+
 
 OI::OI() {
 	// Process operator interface input here.
-	m_Driver 	= new Joystick(0);
-	m_Operator 	= new Joystick(1);
+	m_driverPad = new Joystick(PAD_DRIVER);
+	m_operatorPad = new Joystick(PAD_OPERATOR);
 
+#define BUTTON_SETUP(btn_name, pad, btn_code, action, cmd, arg) \
+	btn_name = new JoystickButton(pad, btn_code); \
+	btn_name->action(new cmd(arg));
+#include "buttons.h"
+#undef BUTTON_SETUP
 	//Driver
-
-m_Shift = new JoystickButton(m_Driver,XB360_BUMPER_RIGHT);
-m_Shift ->WhenPressed(new CmdDriveShiftToggle());
-
-m_driveType = new JoystickButton(m_Driver,XB360_START);
-m_driveType ->WhenPressed(new CmdDriveChangeMode());
 }
 
+	float OI::driverLeftX() {
+		return scaleAxis(m_driverPad->GetRawAxis(DRV_AXIS_X)) * DRIVE_MOTORS_SCALE;
+	}
+
+	float OI::driverLeftY() {
+		return -scaleAxis(m_driverPad->GetRawAxis(DRV_AXIS_Y)) * DRIVE_MOTORS_SCALE;
+	}
+
+	float OI::driverRightX() {
+		return scaleAxis(m_driverPad->GetRawAxis(DRV_AXIS_X2)) * DRIVE_MOTORS_SCALE;
+	}
+
+	float OI::driverRightY() {
+		return -scaleAxis(m_driverPad->GetRawAxis(DRV_AXIS_Y2)) * DRIVE_MOTORS_SCALE;
+	}
 
 
+	float OI::scaleAxis(float input) {
+		const float k = 21;
+		const float y = 22;
+
+		float filteredInput = fabs(input);
+
+		if(filteredInput <= AXIS_FILTER) {
+			filteredInput = 0.;
+		}
+
+		return (pow(y, filteredInput) - 1) / k * Sign(input);
+	}
 
 //Operator
-float OI::driveScale(float in)
-{
-	return ((fabs(in) < 0.01) ? 0 : in);
-}
-float OI::driverLeftX()
-{
-	return 0 - driveScale(m_Driver->GetRawAxis(XB360_AXIS_LEFT_X));
-}
-
-float OI::driverLeftY()
-{
-	return 0 - driveScale(m_Driver->GetRawAxis(XB360_AXIS_LEFT_Y));
-}
-
-float OI::driverRightX()
-{
-	return 0 - driveScale(m_Driver->GetRawAxis(XB360_AXIS_RIGHT_X));
-}
-
-float OI::driverRightY()
-{
-	return 0 - driveScale(m_Driver->GetRawAxis(XB360_AXIS_RIGHT_Y));
-}
 
 
 

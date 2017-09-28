@@ -15,9 +15,9 @@
 
 //Gatling
 	const int PWM_GATLING = 3;
-//Turret
+//Turret Horizontal
 	const int PWM_PAN_1 = 4;
-//Tilt
+//Tilt Vertical
 	const int PWM_PAN_2 = 5;
 
 
@@ -33,7 +33,7 @@
 //Relay
 	const UINT32 RELAY_COMPRESSOR_1					= 1;
 	const UINT32 RELAY_COMPRESSOR_2					= 2;
-	const UINT32 RELAY_BLING_3						= 3;
+	const UINT32 RELAY_BLING						= 3;
 
 	const UINT32 GPIO_PRESSURE						= 14;
 
@@ -42,6 +42,8 @@
 
 	const float PNEUMATICS_PRESSURE_VOLTAGE_B		= 1.008;
 	const float PNEUMATICS_PRESSURE_VOLTAGE_M		= 63.344;
+
+	const float DRIVE_MOTORS_SCALE					= 1;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
