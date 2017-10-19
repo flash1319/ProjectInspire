@@ -45,6 +45,14 @@
 
 	const float DRIVE_MOTORS_SCALE					= 1;
 
+// Digital IO
+	const UINT32 GPIO_LEFT_ENCODER_A 				= 1;
+	const UINT32 GPIO_LEFT_ENCODER_B 				= 2;
+	const UINT32 GPIO_RIGHT_ENCODER_A 				= 3;
+	const UINT32 GPIO_RIGHT_ENCODER_B 				= 4;
+
+
+	const float DRV_DIST_PER_PULSE = 8.0 * 3.1415926358979323846264338 / 360;
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking

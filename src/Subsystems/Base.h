@@ -25,8 +25,8 @@ private:
 
 		e_shift m_shift;
 		e_drivetype m_drivetype;
-		Command *m_cmdTank, *m_cmdArcade;
-	//Encoder *m_leftEncoder, *m_rightEncoder; will add encoder
+		Command *m_CmdTank, *m_CmdArcade;
+	Encoder *m_leftEncoder, *m_rightEncoder;
 public:
 	Base();
 
